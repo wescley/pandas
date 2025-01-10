@@ -1,7 +1,7 @@
-Automatização de tarefas com Pandas: Um Caso de Uso Prático
+# Automatização de tarefas com Pandas: Um Caso de Uso Prático
 A biblioteca Pandas do Python é amplamente utilizada para manipulação e análise de dados. Sua simplicidade e poder permitem automatizar tarefas repetitivas de processamento de dados, economizando tempo e reduzindo erros. Este artigo apresenta um caso de uso prático que demonstra como usar o Pandas para automatizar a leitura e análise de arquivos de entrada.
 
-Contexto do Problema
+## Contexto do Problema
 Imagine uma empresa que recebe diariamente relatórios em formato CSV contendo informações de vendas. Cada arquivo possui as colunas: "Data", "Produto", "Quantidade" e "Valor". A tarefa é calcular:
 
 O total de vendas do dia.
@@ -12,20 +12,19 @@ Relatórios consolidados mensais.
 
 Fazer isso manualmente pode ser demorado, mas com Pandas, é possível automatizar todo o processo.
 
-
-Solução com Pandas
+## Solução com Pandas
 Aqui está um exemplo de código que implementa a solução:
 
 import pandas as pd
 import os
 
-# Caminho da pasta contendo os arquivos CSV
+### Caminho da pasta contendo os arquivos CSV
 pasta_arquivos = 'relatorios_vendas'
 
-# Lista para consolidar os dados mensais
+### Lista para consolidar os dados mensais
 dados_mensais = []
 
-# Iteração pelos arquivos na pasta
+### Iteração pelos arquivos na pasta
 for arquivo in os.listdir(pasta_arquivos):
     if arquivo.endswith('.csv'):
         # Lê o arquivo
@@ -45,10 +44,10 @@ for arquivo in os.listdir(pasta_arquivos):
         df['data'] = pd.to_datetime(df['data'])
         dados_mensais.append(df)
 
-# Consolida os dados em um único DataFrame
+### Consolida os dados em um único DataFrame
 consolidado = pd.concat(dados_mensais)
 
-# Relatório mensal consolidado
+### Relatório mensal consolidado
 relatorio_mensal = consolidado.groupby(consolidado['data'].dt.to_period('M')).agg({
     'Total': 'sum',
     'quantidade': 'sum'
@@ -57,7 +56,7 @@ relatorio_mensal = consolidado.groupby(consolidado['data'].dt.to_period('M')).ag
 print("\nRelatório Mensal Consolidado:")
 print(relatorio_mensal)
 
-# Exporta o relatório consolidado para um arquivo CSV
+### Exporta o relatório consolidado para um arquivo CSV
 relatorio_mensal.to_csv('relatorio_mensal.csv') 
 
 Explicação do Código
@@ -78,5 +77,5 @@ Escalabilidade: O código pode ser adaptado para lidar com milhares de arquivos.
 Flexibilidade: Permite ajustes rápidos para incluir novas colunas ou métricas.
 
 
-Conclusão
+## Conclusão
 Com a biblioteca Pandas, é possível automatizar o processamento de arquivos de entrada de forma eficiente e escalável. Este caso de uso exemplifica como tarefas repetitivas podem ser simplificadas, permitindo que os profissionais foquem em análises mais estratégicas.
